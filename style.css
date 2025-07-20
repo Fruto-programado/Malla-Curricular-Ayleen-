@@ -24,7 +24,7 @@ body {
   align-items: center;
 }
 
-/* TÍTULO: Dancing Script, bien grueso y grande */
+/* --------- TÍTULO --------- */
 .titulo {
   font-family: 'Dancing Script', cursive;
   font-size: 3.6rem;
@@ -33,12 +33,12 @@ body {
   margin: 38px 0 35px 0;
   letter-spacing: 1.7px;
   font-weight: 900;
-  background: rgba(255,255,255,0.90);
+  background: rgba(255,255,255,0.38); /* Más transparente */
   border-radius: 18px;
   display: inline-block;
   width: 100%;
   padding: 6px 16px;
-  box-shadow: 0 0 16px #e6e1e3b6;
+  box-shadow: none;
 }
 
 /* --------- MALLA HORIZONTAL Y FONDO SEMITRANSPARENTE --------- */
