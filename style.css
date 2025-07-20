@@ -4,20 +4,24 @@ body {
   font-family: 'Montserrat', Arial, sans-serif;
   margin: 0;
   min-height: 100vh;
+  color: #111;
 }
+
 .titulo {
-  font-family: 'Dancing Script', cursive;
-  font-size: 3rem;
+  font-family: 'Luckiest Guy', cursive, sans-serif;
+  font-size: 3.2rem;
   text-align: center;
-  color: #D86B98;
+  color: #111;
   margin: 40px 0 30px 0;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   text-shadow: 0 2px 18px #fff7fa, 0 0px 1px #bdb1b1;
-  background: rgba(255,255,255,0.76);
+  background: rgba(255,255,255,0.83);
   border-radius: 18px;
   display: inline-block;
   padding: 0 18px;
+  width: 100%;
 }
+
 .contenedor-malla {
   display: flex;
   flex-wrap: wrap;
@@ -25,8 +29,8 @@ body {
   gap: 28px;
   padding-bottom: 50px;
 }
+
 .semestre-card {
-  background: #ffe3ecf5;
   border-radius: 22px;
   box-shadow: 0 4px 24px #c2b5c31a, 0 1.5px 4px #d2c2d430;
   min-width: 240px;
@@ -38,26 +42,34 @@ body {
   align-items: center;
   backdrop-filter: blur(2px);
 }
-.semestre-card:nth-child(2n) { background: #e1d7fcdf; }
-.semestre-card:nth-child(3n) { background: #fce8c3e3; }
-.semestre-card:nth-child(4n) { background: #e2f2e8e9; }
-.semestre-card:nth-child(5n) { background: #fde7ecf1; }
+
+.semestre-card:nth-child(1)  { background: #F7D1D4; }  /* Mary's Rose */
+.semestre-card:nth-child(2)  { background: #A9B9CE; }  /* Endless Sky */
+.semestre-card:nth-child(3)  { background: #B6D3C4; }  /* Gossamer Green */
+.semestre-card:nth-child(4)  { background: #F6E6B4; }  /* Pastel Yellow */
+.semestre-card:nth-child(5)  { background: #CAB9DD; }  /* Orchid Petal */
+.semestre-card:nth-child(6)  { background: #F3D8DF; }  /* Heavenly Pink */
+.semestre-card:nth-child(7)  { background: #BFD7EA; }  /* Delicate Blue */
+.semestre-card:nth-child(8)  { background: #F2F1E6; }  /* Cappuccino Foam */
+.semestre-card:nth-child(9)  { background: #BFA5A0; }  /* Hushed Violet */
+.semestre-card:nth-child(10) { background: #FFF4F7; }  /* Extra blanco rosado pastel */
+
 .semestre-titulo {
-  color: #cc4588;
+  color: #111;
   font-size: 1.19rem;
   font-weight: bold;
   text-align: center;
   margin-bottom: 17px;
   letter-spacing: 0.3px;
+  font-family: 'Montserrat', Arial, sans-serif;
 }
+
 .ramo-btn {
-  background: #c2b9f5;
-  border: none;
+  border: 2px solid #fff;
+  font-weight: 700;
   border-radius: 14px;
-  color: #4c3358;
   font-size: 1.03rem;
   font-family: 'Montserrat', Arial, sans-serif;
-  font-weight: 600;
   width: 100%;
   margin-bottom: 10px;
   padding: 13px 8px;
@@ -67,14 +79,24 @@ body {
   position: relative;
   text-align: left;
   background-clip: padding-box;
+  color: #111;
+  background: #fff;
 }
-.semestre-card:nth-child(2n) .ramo-btn { background: #fad7e8; color: #88275e; }
-.semestre-card:nth-child(3n) .ramo-btn { background: #f8eab0; color: #7c5a17; }
-.semestre-card:nth-child(4n) .ramo-btn { background: #bff2d8; color: #28584d; }
-.semestre-card:nth-child(5n) .ramo-btn { background: #fdd8d2; color: #97424c; }
+
+.semestre-card:nth-child(1)  .ramo-btn { background: #F7D1D4; color: #111; }
+.semestre-card:nth-child(2)  .ramo-btn { background: #A9B9CE; color: #111; }
+.semestre-card:nth-child(3)  .ramo-btn { background: #B6D3C4; color: #111; }
+.semestre-card:nth-child(4)  .ramo-btn { background: #F6E6B4; color: #111; }
+.semestre-card:nth-child(5)  .ramo-btn { background: #CAB9DD; color: #111; }
+.semestre-card:nth-child(6)  .ramo-btn { background: #F3D8DF; color: #111; }
+.semestre-card:nth-child(7)  .ramo-btn { background: #BFD7EA; color: #111; }
+.semestre-card:nth-child(8)  .ramo-btn { background: #F2F1E6; color: #111; }
+.semestre-card:nth-child(9)  .ramo-btn { background: #BFA5A0; color: #111; }
+.semestre-card:nth-child(10) .ramo-btn { background: #FFF4F7; color: #111; }
+
 .ramo-btn.aprobado {
   background: #b6e8c8 !important;
-  color: #20865e !important;
+  color: #111 !important;
   text-decoration: line-through;
   opacity: 0.7;
 }
@@ -100,6 +122,10 @@ body {
   display: none;
 }
 .ramo-btn.aprobado .check { display: flex; }
+.semestre-titulo, .ramo-btn, .ramo-btn.bloqueado, .ramo-btn.aprobado {
+  color: #111 !important;
+}
+
 @media (max-width: 1100px) {
   .contenedor-malla { flex-wrap: wrap; }
 }
