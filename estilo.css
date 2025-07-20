@@ -1,0 +1,114 @@
+body {
+  background: #F8FAFC;
+  margin: 0;
+  padding: 30px 0;
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+.titulo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.7rem;
+  text-align: center;
+  color: #71A6D2;
+  margin-bottom: 30px;
+}
+.malla {
+  max-width: 1350px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 22px;
+}
+.semestre {
+  background: #F7E7FB;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px #c4c4c430;
+  padding: 20px 10px 30px 10px;
+  margin-bottom: 10px;
+  min-width: 180px;
+}
+.semestre h2 {
+  color: #B393D3;
+  text-align: center;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 1.1rem;
+  margin-top: 5px;
+  margin-bottom: 17px;
+  font-weight: 600;
+}
+.ramo {
+  background: #FFF9DB;
+  border: 2px solid #FFECAA;
+  border-radius: 14px;
+  padding: 12px 10px;
+  margin-bottom: 12px;
+  color: #574A54;
+  font-size: 1rem;
+  box-shadow: 0 1px 4px #e0e0e035;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: box-shadow 0.14s, background 0.18s;
+  opacity: 1;
+  position: relative;
+}
+.ramo.pastel2 { background: #E2F0CB; border-color: #B8DFCA;}
+.ramo.pastel3 { background: #EDE7F6; border-color: #C5CAE9;}
+.ramo.pastel4 { background: #FFE5EC; border-color: #F7C9DF;}
+.ramo.pastel5 { background: #D6E5FA; border-color: #B7D0F7;}
+.ramo.pastel6 { background: #FCF4DD; border-color: #F9E6A7;}
+.ramo.pastel7 { background: #FDF1F0; border-color: #F5D1C8;}
+.ramo.pastel8 { background: #E1F5FE; border-color: #B3E5FC;}
+.ramo .nombre {
+  flex: 1;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.ramo .detalle {
+  font-size: 0.91rem;
+  color: #8c7799;
+  margin-top: 3px;
+  font-weight: 400;
+}
+.ramo.bloqueado {
+  opacity: 0.4;
+  pointer-events: none;
+  filter: grayscale(0.15);
+}
+.ramo.aprobado {
+  background: #E2F0CB !important;
+  border-color: #69B778 !important;
+  color: #28536B !important;
+  box-shadow: 0 1px 8px #b2dfba4a;
+}
+.check {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #b8c0c8;
+  border-radius: 50%;
+  margin-right: 12px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border 0.18s;
+}
+.ramo.aprobado .check {
+  border-color: #52b06b;
+  background: #bbe9cb;
+}
+.check svg {
+  display: none;
+}
+.ramo.aprobado .check svg {
+  display: block;
+}
+@media (max-width: 1150px) {
+  .malla { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 800px) {
+  .malla { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .malla { grid-template-columns: 1fr; }
+  .semestre { min-width: unset;}
+}
