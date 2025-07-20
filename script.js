@@ -17,7 +17,7 @@ const malla = [
       { id: 'bases_personalidad', nombre: "Bases de la personalidad", abre: ['procesos_afectivos', 'simiopatologia'] },
       { id: 'neuro_cog', nombre: "Neurociencia cognitiva", abre: ['procesos_cognitivos'] },
       { id: 'fund_epistemologia', nombre: "Fundamentos epistemológicos del comportamiento humano", abre: ['psico_social'] },
-      { id: 'metodo2', nombre: "Metodología de la investigación II (técnicas de recolección de datos)", abre: ['tecnicas_recoleccion'] },
+      { id: 'metodo2', nombre: "Metodología de la investigación II", abre: ['tecnicas_recoleccion'] }, // ACTUALIZADO
       { id: 'ingles_basico', nombre: "Inglés básico", abre: ['ingles_tecnico'] }
     ]
   },
@@ -137,26 +137,21 @@ function renderMalla() {
 }
 
 function toggleAprobado(id) {
-  // Si está bloqueado, no dejar marcar
   if (idToBtn[id].classList.contains('bloqueado')) return;
   aprobados[id] = !aprobados[id];
   actualizarEstado();
 }
 
 function actualizarEstado() {
-  // 1. Marcar todos como bloqueados por defecto
   Object.values(idToBtn).forEach(btn => {
     btn.classList.remove('aprobado', 'bloqueado');
     btn.disabled = false;
   });
 
-  // 2. Primera tanda siempre desbloqueada
   malla[0].ramos.forEach(ramo => {
     if (!aprobados[ramo.id]) idToBtn[ramo.id].classList.remove('aprobado', 'bloqueado');
   });
 
-  // 3. Revisar dependencias (abre)
-  // Primero bloquea todos excepto los iniciales o los desbloqueados por requisitos
   const desbloqueados = new Set(malla[0].ramos.map(r => r.id));
   let cambios = true;
   while (cambios) {
@@ -164,11 +159,7 @@ function actualizarEstado() {
     malla.forEach(sem =>
       sem.ramos.forEach(ramo => {
         if (desbloqueados.has(ramo.id)) return;
-        if (!ramo.abre) {
-          // Si no tiene requisitos, solo desbloquea si es inicial (ya está hecho arriba)
-          return;
-        }
-        // Si todos los requisitos para este ramo están aprobados, se desbloquea
+        if (!ramo.abre) return;
         let requisitos = [];
         malla.forEach(s =>
           s.ramos.forEach(r => {
@@ -183,19 +174,5 @@ function actualizarEstado() {
     );
   }
 
-  // 4. Asignar clases visuales según estado
   Object.entries(idToBtn).forEach(([id, btn]) => {
-    if (aprobados[id]) {
-      btn.classList.add('aprobado');
-      btn.classList.remove('bloqueado');
-    } else if (!desbloqueados.has(id)) {
-      btn.classList.add('bloqueado');
-      btn.disabled = true;
-    } else {
-      btn.classList.remove('aprobado', 'bloqueado');
-      btn.disabled = false;
-    }
-  });
-}
-
-renderMalla();
+    if (
