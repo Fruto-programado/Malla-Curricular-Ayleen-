@@ -1,167 +1,201 @@
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: #fff url('image0.jpeg') repeat;
-  background-size: 420px;
-  color: #111;
-  font-family: 'Montserrat', Arial, sans-serif;
-  overflow-x: hidden;
-  position: relative;
+const malla = [
+  // Primer año
+  {
+    titulo: "1° Semestre",
+    ramos: [
+      { id: 'intro_psico', nombre: "Introducción a la psicología", abre: ['bases_personalidad', 'fund_epistemologia'] },
+      { id: 'neurofisio', nombre: "Neurofisiología", abre: ['neuro_cog'] },
+      { id: 'etica', nombre: "Ética y deontología en la psicología" },
+      { id: 'metodo1', nombre: "Metodología de la investigación I", abre: ['metodo2'] },
+      { id: 'tecnologia', nombre: "Tecnología e innovación" }
+    ]
+  },
+  {
+    titulo: "2° Semestre",
+    ramos: [
+      { id: 'ciclo_infanto', nombre: "Ciclo evolutivo infanto juvenil", abre: ['ciclo_adulto'] },
+      { id: 'bases_personalidad', nombre: "Bases de la personalidad", abre: ['procesos_afectivos', 'simiopatologia'] },
+      { id: 'neuro_cog', nombre: "Neurociencia cognitiva", abre: ['procesos_cognitivos'] },
+      { id: 'fund_epistemologia', nombre: "Fundamentos epistemológicos del comportamiento humano", abre: ['psico_social'] },
+      { id: 'metodo2', nombre: "Metodología de la investigación II (técnicas de recolección de datos)", abre: ['tecnicas_recoleccion'] },
+      { id: 'ingles_basico', nombre: "Inglés básico", abre: ['ingles_tecnico'] }
+    ]
+  },
+  // Segundo año
+  {
+    titulo: "3° Semestre",
+    ramos: [
+      { id: 'ciclo_adulto', nombre: "Ciclo evolutivo adulto", abre: ['clinica_adulto'] },
+      { id: 'procesos_afectivos', nombre: "Procesos afectivos y motivacionales", abre: ['genero_identidad'] },
+      { id: 'procesos_cognitivos', nombre: "Procesos cognitivos", abre: ['procesos_aprendizaje'] },
+      { id: 'simiopatologia', nombre: "Semiología de la patología mental", abre: ['estructuras_clinicas', 'clinica_adulto'] },
+      { id: 'psico_social', nombre: "Psicología social", abre: ['psico_comunitaria'] },
+      { id: 'tecnicas_recoleccion', nombre: "Técnicas de recolección de datos", abre: ['modulo_inicial', 'tesis1'] }
+    ]
+  },
+  {
+    titulo: "4° Semestre",
+    ramos: [
+      { id: 'procesos_aprendizaje', nombre: "Procesos de aprendizaje", abre: ['psico_educacional'] },
+      { id: 'estructuras_clinicas', nombre: "Estructuras clínicas y trastornos de la personalidad", abre: ['enfoque_terapia1'] },
+      { id: 'genero_identidad', nombre: "Género, identidad y diversidad" },
+      { id: 'psico_comunitaria', nombre: "Psicología comunitaria", abre: ['psico_juridica'] },
+      { id: 'modulo_inicial', nombre: "Módulo integrador inicial: elaboración de proyectos" }
+    ]
+  },
+  // Tercer año
+  {
+    titulo: "5° Semestre",
+    ramos: [
+      { id: 'ciclo_familiar', nombre: "Ciclo vital familiar", abre: ['psicogerontologia'] },
+      { id: 'psico_educacional', nombre: "Psicología educacional", abre: ['evaluacion_psicoeducativa'] },
+      { id: 'psico_juridica', nombre: "Psicología jurídica", abre: ['diseno_gestion_psicosocial'] },
+      { id: 'psico_trabajo', nombre: "Psicología del trabajo y las organizaciones", abre: ['atraccion_reclutamiento'] },
+      { id: 'clinica_infanto', nombre: "Introducción a la clínica infanto juvenil", abre: ['psicodiag_infanto'] },
+      { id: 'enfoque_terapia1', nombre: "Enfoques en terapias psicológica I", abre: ['enfoque_terapia2'] },
+      { id: 'desarrollo_sostenible', nombre: "Desarrollo sostenible" }
+    ]
+  },
+  {
+    titulo: "6° Semestre",
+    ramos: [
+      { id: 'psicogerontologia', nombre: "Psicogerontología" },
+      { id: 'evaluacion_psicoeducativa', nombre: "Evaluación psicoeducativa", abre: ['intervencion_psicoeducativa'] },
+      { id: 'diseno_gestion_psicosocial', nombre: "Diseño y gestión de proyectos psicosociales" },
+      { id: 'atraccion_reclutamiento', nombre: "Atracción, reclutamiento y selección de personas", abre: ['desarrollo_cambio_org'] },
+      { id: 'clinica_adulto', nombre: "Introducción a la clínica adultos", abre: ['psicodiag_adulto'] },
+      { id: 'enfoque_terapia2', nombre: "Enfoques de terapia psicológica II" },
+      { id: 'ingles_tecnico', nombre: "Inglés técnico" }
+    ]
+  },
+  // Cuarto año
+  {
+    titulo: "7° Semestre",
+    ramos: [
+      { id: 'intervencion_psicoeducativa', nombre: "Intervención psicoeducativa" },
+      { id: 'desarrollo_cambio_org', nombre: "Desarrollo y cambio organizacional", abre: ['gestion_personas'] },
+      { id: 'psicodiag_adulto', nombre: "Psicodiagnóstico en psicología adulto", abre: ['intervencion_adulto'] },
+      { id: 'psicodiag_infanto', nombre: "Psicodiagnóstico en psicología infanti juvenil", abre: ['intervencion_infanto'] },
+      { id: 'tesis1', nombre: "Tesis de licenciatura en psicología I", abre: ['integrador_intermedio'] },
+      { id: 'responsabilidad_social', nombre: "Responsabilidad social y emprendimiento" }
+    ]
+  },
+  {
+    titulo: "8° Semestre",
+    ramos: [
+      { id: 'gestion_personas', nombre: "Gestión estratégica de personas", abre: ['electivo1'] },
+      { id: 'intervencion_adulto', nombre: "Intervención en psicología adulto", abre: ['electivo1'] },
+      { id: 'intervencion_infanto', nombre: "Intervención en psicología infanto juvenil", abre: ['electivo1'] },
+      { id: 'integrador_intermedio', nombre: "Integrador intermedio: tesis de licenciatura en psicología II", abre: ['practica1'] },
+      { id: 'vida_laboral', nombre: "Preparación para la vida laboral", abre: ['electivo1'] }
+    ]
+  },
+  // Quinto año
+  {
+    titulo: "9° Semestre",
+    ramos: [
+      { id: 'practica1', nombre: "Práctica profesional I", abre: ['integrador_final'] },
+      { id: 'electivo1', nombre: "Electivo de especialización profesional I", abre: ['electivo2'] }
+    ]
+  },
+  {
+    titulo: "10° Semestre",
+    ramos: [
+      { id: 'integrador_final', nombre: "Módulo integrador final práctica profesional II" },
+      { id: 'electivo2', nombre: "Electivo de especialización profesional II" }
+    ]
+  }
+];
+
+// --- Render de la malla y lógica de desbloqueo ---
+
+const idToBtn = {};
+const aprobados = {};
+
+function renderMalla() {
+  const cont = document.getElementById('contenedor-malla');
+  cont.innerHTML = '';
+  malla.forEach((sem, idx) => {
+    const card = document.createElement('div');
+    card.className = 'semestre-card';
+    card.innerHTML = `<div class="semestre-titulo">${sem.titulo}</div>`;
+    sem.ramos.forEach(ramo => {
+      const btn = document.createElement('button');
+      btn.className = 'ramo-btn';
+      btn.id = ramo.id;
+      btn.innerHTML = `
+        <span class="ramo-nombre">${ramo.nombre}</span>
+        <span class="check">✔️</span>
+      `;
+      btn.onclick = () => toggleAprobado(ramo.id);
+      card.appendChild(btn);
+      idToBtn[ramo.id] = btn;
+    });
+    cont.appendChild(card);
+  });
+  actualizarEstado();
 }
 
-/* --------- CONTENIDO CENTRAL --------- */
-.main-content {
-  position: relative;
-  z-index: 2;
-  background: transparent;
-  max-width: 1100px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  min-height: 100vh;
-  padding: 36px 8px 60px 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+function toggleAprobado(id) {
+  // Si está bloqueado, no dejar marcar
+  if (idToBtn[id].classList.contains('bloqueado')) return;
+  aprobados[id] = !aprobados[id];
+  actualizarEstado();
 }
 
-/* TÍTULO: Dancing Script, bien grueso y grande */
-.titulo {
-  font-family: 'Dancing Script', cursive;
-  font-size: 3.6rem;
-  text-align: center;
-  color: #111;
-  margin: 38px 0 35px 0;
-  letter-spacing: 1.7px;
-  font-weight: 900;
-  background: rgba(255,255,255,0.90);
-  border-radius: 18px;
-  display: inline-block;
-  width: 100%;
-  padding: 6px 16px;
-  box-shadow: 0 0 16px #e6e1e3b6;
+function actualizarEstado() {
+  // 1. Marcar todos como bloqueados por defecto
+  Object.values(idToBtn).forEach(btn => {
+    btn.classList.remove('aprobado', 'bloqueado');
+    btn.disabled = false;
+  });
+
+  // 2. Primera tanda siempre desbloqueada
+  malla[0].ramos.forEach(ramo => {
+    if (!aprobados[ramo.id]) idToBtn[ramo.id].classList.remove('aprobado', 'bloqueado');
+  });
+
+  // 3. Revisar dependencias (abre)
+  // Primero bloquea todos excepto los iniciales o los desbloqueados por requisitos
+  const desbloqueados = new Set(malla[0].ramos.map(r => r.id));
+  let cambios = true;
+  while (cambios) {
+    cambios = false;
+    malla.forEach(sem =>
+      sem.ramos.forEach(ramo => {
+        if (desbloqueados.has(ramo.id)) return;
+        if (!ramo.abre) {
+          // Si no tiene requisitos, solo desbloquea si es inicial (ya está hecho arriba)
+          return;
+        }
+        // Si todos los requisitos para este ramo están aprobados, se desbloquea
+        let requisitos = [];
+        malla.forEach(s =>
+          s.ramos.forEach(r => {
+            if (r.abre && r.abre.includes(ramo.id)) requisitos.push(r.id);
+          })
+        );
+        if (requisitos.every(rid => aprobados[rid])) {
+          desbloqueados.add(ramo.id);
+          cambios = true;
+        }
+      })
+    );
+  }
+
+  // 4. Asignar clases visuales según estado
+  Object.entries(idToBtn).forEach(([id, btn]) => {
+    if (aprobados[id]) {
+      btn.classList.add('aprobado');
+      btn.classList.remove('bloqueado');
+    } else if (!desbloqueados.has(id)) {
+      btn.classList.add('bloqueado');
+      btn.disabled = true;
+    } else {
+      btn.classList.remove('aprobado', 'bloqueado');
+      btn.disabled = false;
+    }
+  });
 }
 
-/* --------- MALLA HORIZONTAL Y FONDO SEMITRANSPARENTE --------- */
-.contenedor-malla {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;        /* PERMITE QUE BAJE ABAJO */
-  justify-content: center;
-  align-items: flex-start;
-  gap: 28px;
-  padding: 40px 18px 50px 18px;
-  width: 100%;
-  margin-bottom: 30px;
-  background: rgba(255,255,255,0.72);  /* Más transparente para ver imagen fondo */
-  border-radius: 20px;
-  box-shadow: 0 0 80px 0px rgba(180,176,194,0.09);
-  z-index: 2;
-  position: relative;
-  box-sizing: border-box;
-}
-
-/* --------- SEMESTRE TARJETAS --------- */
-.semestre-card {
-  border-radius: 22px;
-  min-width: 240px;
-  max-width: 270px;
-  padding: 26px 20px 30px 20px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 2px 18px #e7e7ed59;
-  backdrop-filter: blur(2px);
-  margin-top: 0;
-}
-.semestre-card:nth-child(1)  { background: #F7D1D4; }
-.semestre-card:nth-child(2)  { background: #A9B9CE; }
-.semestre-card:nth-child(3)  { background: #B6D3C4; }
-.semestre-card:nth-child(4)  { background: #F6E6B4; }
-.semestre-card:nth-child(5)  { background: #CAB9DD; }
-.semestre-card:nth-child(6)  { background: #F3D8DF; }
-.semestre-card:nth-child(7)  { background: #BFD7EA; }
-.semestre-card:nth-child(8)  { background: #F2F1E6; }
-.semestre-card:nth-child(9)  { background: #BFA5A0; }
-.semestre-card:nth-child(10) { background: #FFF4F7; }
-
-.semestre-titulo {
-  color: #111;
-  font-size: 1.19rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 17px;
-  letter-spacing: 0.3px;
-  font-family: 'Montserrat', Arial, sans-serif;
-}
-
-/* --------- RAMOS --------- */
-.ramo-btn {
-  border: 2px solid #fff;
-  font-weight: 700;
-  border-radius: 14px;
-  font-size: 1.03rem;
-  font-family: 'Montserrat', Arial, sans-serif;
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 13px 8px;
-  box-shadow: 0 2px 7px #d1c4e930;
-  cursor: pointer;
-  transition: all 0.15s;
-  position: relative;
-  text-align: left;
-  background-clip: padding-box;
-  color: #111;
-  background: #fff;
-}
-
-.semestre-card:nth-child(1)  .ramo-btn { background: #F7D1D4; color: #111; }
-.semestre-card:nth-child(2)  .ramo-btn { background: #A9B9CE; color: #111; }
-.semestre-card:nth-child(3)  .ramo-btn { background: #B6D3C4; color: #111; }
-.semestre-card:nth-child(4)  .ramo-btn { background: #F6E6B4; color: #111; }
-.semestre-card:nth-child(5)  .ramo-btn { background: #CAB9DD; color: #111; }
-.semestre-card:nth-child(6)  .ramo-btn { background: #F3D8DF; color: #111; }
-.semestre-card:nth-child(7)  .ramo-btn { background: #BFD7EA; color: #111; }
-.semestre-card:nth-child(8)  .ramo-btn { background: #F2F1E6; color: #111; }
-.semestre-card:nth-child(9)  .ramo-btn { background: #BFA5A0; color: #111; }
-.semestre-card:nth-child(10) .ramo-btn { background: #FFF4F7; color: #111; }
-
-.ramo-btn.aprobado {
-  background: #F3D8DF !important; /* rosado pastel */
-  color: #111 !important;
-  text-decoration: line-through;
-  opacity: 0.7;
-}
-.ramo-btn.bloqueado {
-  background: #e4e6ec !important;
-  color: #aaa !important;
-  opacity: 0.48;
-  cursor: not-allowed;
-  text-decoration: none;
-}
-.ramo-btn .check {
-  position: absolute;
-  right: 17px;
-  top: 13px;
-  width: 18px;
-  height: 18px;
-  background: #fff;
-  border-radius: 50%;
-  border: 1.7px solid #78bb8f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  display: none;
-}
-.ramo-btn.aprobado .check { display: flex; }
-.semestre-titulo, .ramo-btn, .ramo-btn.bloqueado, .ramo-btn.aprobado {
-  color: #111 !important;
-}
-
-@media (max-width: 1200px) {
-  .main-content { max-width: 100vw; }
-}
-@media (max-width: 820px) {
-  .contenedor-malla { flex-direction: column; align-items: center;}
-  .semestre-card { max-width: 95vw; min-width: 220px; }
-}
+renderMalla();
