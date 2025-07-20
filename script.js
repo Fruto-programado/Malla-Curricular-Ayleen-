@@ -1,86 +1,90 @@
+// Malla: cada objeto representa un semestre, cada ramo tiene id, nombre, dependencias
 const malla = [
-  // ... (copiar la definición completa de la malla del ejemplo anterior aquí) ...
-  // Puedes usar exactamente el bloque del ejemplo anterior, ¡ya está ajustado!
+  {
+    titulo: "1° Semestre",
+    ramos: [
+      { id: 'intro_psico', nombre: "Introducción a la psicología", abre: ['bases_personalidad','fund_epistemologia'] },
+      { id: 'neurofisio', nombre: "Neurofisiología", abre: ['neuro_cog'] },
+      { id: 'etica', nombre: "Ética y deontología en la psicología" },
+      { id: 'metodo1', nombre: "Metodología de la investigación I", abre: ['metodo2'] }
+    ]
+  },
+  {
+    titulo: "2° Semestre",
+    ramos: [
+      { id: 'ciclo_infanto', nombre: "Ciclo evolutivo infanto juvenil", abre: ['ciclo_adulto'] },
+      { id: 'bases_personalidad', nombre: "Bases de la personalidad", requiere: ['intro_psico'], abre: ['proc_afectivos','semiologia'] },
+      { id: 'neuro_cog', nombre: "Neurociencia cognitiva", requiere: ['neurofisio'], abre: ['proc_cognitivos'] },
+      { id: 'fund_epistemologia', nombre: "Fundamentos epistemológicos del comportamiento humano", requiere: ['intro_psico'], abre: ['psico_social'] },
+      { id: 'metodo2', nombre: "Metodología de la investigación II", requiere: ['metodo1'], abre: ['tecnicas_recoleccion'] },
+      { id: 'ingles_basico', nombre: "Inglés básico", abre: ['ingles_tecnico'] }
+    ]
+  },
+  {
+    titulo: "3° Semestre",
+    ramos: [
+      { id: 'ciclo_adulto', nombre: "Ciclo evolutivo adulto", requiere: ['ciclo_infanto'], abre: ['clinica_adultos'] },
+      { id: 'proc_afectivos', nombre: "Procesos afectivos y motivacionales", requiere: ['bases_personalidad'], abre: ['genero'] },
+      { id: 'proc_cognitivos', nombre: "Procesos cognitivos", requiere: ['neuro_cog'], abre: ['proc_aprendizaje'] },
+      { id: 'semiologia', nombre: "Semiología de la patología mental", requiere: ['bases_personalidad'], abre: ['estructuras_clinicas','clinica_adultos'] },
+      { id: 'psico_social', nombre: "Psicología social", requiere: ['fund_epistemologia'], abre: ['psico_comunitaria'] },
+      { id: 'tecnicas_recoleccion', nombre: "Técnicas de recolección de datos", requiere: ['metodo2'], abre: ['mod_integrador','tesis1'] }
+    ]
+  },
+  {
+    titulo: "4° Semestre",
+    ramos: [
+      { id: 'proc_aprendizaje', nombre: "Procesos de aprendizaje", requiere: ['proc_cognitivos'], abre: ['psico_educacional'] },
+      { id: 'estructuras_clinicas', nombre: "Estructuras clínicas y trastornos de la personalidad", requiere: ['semiologia'], abre: ['enfoques_terapia1'] },
+      { id: 'genero', nombre: "Género, identidad y diversidad", requiere: ['proc_afectivos'] },
+      { id: 'psico_comunitaria', nombre: "Psicología comunitaria", requiere: ['psico_social'], abre: ['psico_juridica'] },
+      { id: 'mod_integrador', nombre: "Módulo integrador inicial: elaboración de proyectos", requiere: ['tecnicas_recoleccion'] }
+    ]
+  },
+  // ... sigue igual con los siguientes semestres ...
+  // Agrega el resto siguiendo el patrón, o dime si quieres que te lo complete hasta 10 semestres
 ];
 
-// Guardado en localStorage
-const storageKey = 'mallaAprobada';
+// Estado de ramos aprobados (localStorage)
+const storageKey = 'malla_psico_aprobada';
 let aprobados = JSON.parse(localStorage.getItem(storageKey) || '{}');
 
-function isRamoDesbloqueado(ramo) {
+function isDesbloqueado(ramo) {
   if (!ramo.requiere) return true;
   return ramo.requiere.every(id => aprobados[id]);
 }
+
+// Render
 function renderMalla() {
-  const colores = ['', 'pastel2', 'pastel3', 'pastel4', 'pastel5', 'pastel6', 'pastel7', 'pastel8'];
-  const container = document.getElementById('malla');
-  container.innerHTML = '';
-  malla.forEach((semestreObj, i) => {
-    const divSem = document.createElement('div');
-    divSem.className = 'semestre';
-    divSem.innerHTML = `<h2>${semestreObj.semestre}</h2>`;
-    semestreObj.ramos.forEach((ramo, j) => {
-      const pastel = colores[(j % colores.length) || 1];
+  const cont = document.getElementById('contenedor-malla');
+  cont.innerHTML = '';
+  malla.forEach((semestre, semIdx) => {
+    const card = document.createElement('div');
+    card.className = 'semestre-card';
+    card.innerHTML = `<div class="semestre-titulo">${semestre.titulo}</div>`;
+    semestre.ramos.forEach(ramo => {
+      const desbloqueado = isDesbloqueado(ramo);
       const estaAprobado = !!aprobados[ramo.id];
-      const desbloqueado = isRamoDesbloqueado(ramo);
-      const divRamo = document.createElement('div');
-      divRamo.className = `ramo ${pastel}` +
-        (desbloqueado ? '' : ' bloqueado') +
-        (estaAprobado ? ' aprobado' : '');
-      divRamo.dataset.id = ramo.id;
-
-      // Check
-      const check = document.createElement('span');
-      check.className = 'check';
-      check.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 12l4 4 8-8" stroke="#279d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-      divRamo.appendChild(check);
-
-      // Nombre y detalle
-      const info = document.createElement('div');
-      info.className = 'nombre';
-      info.textContent = ramo.nombre;
-      divRamo.appendChild(info);
-
-      // Detalle de requisitos y abre
-      if (ramo.requiere || ramo.abre) {
-        const detalle = document.createElement('div');
-        detalle.className = 'detalle';
-        if (ramo.requiere) {
-          detalle.innerHTML += `<b>Requiere:</b> ${ramo.requiere.map(id => getNombreById(id)).join(', ')}<br>`;
+      const btn = document.createElement('button');
+      btn.className = 'ramo-btn' + (estaAprobado ? ' aprobado' : '') + (desbloqueado ? '' : ' bloqueado');
+      btn.innerHTML = `
+        ${ramo.nombre}
+        <span class="check">${estaAprobado ? '✔️' : ''}</span>
+      `;
+      btn.onclick = () => {
+        if (!desbloqueado) return;
+        if (estaAprobado) {
+          delete aprobados[ramo.id];
+        } else {
+          aprobados[ramo.id] = true;
         }
-        if (ramo.abre) {
-          detalle.innerHTML += `<b>Abre:</b> ${ramo.abre.map(id => getNombreById(id)).join(', ')}`;
-        }
-        divRamo.appendChild(detalle);
-      }
-
-      // Click para aprobar/desaprobar
-      if (desbloqueado) {
-        divRamo.onclick = () => {
-          if (aprobados[ramo.id]) {
-            delete aprobados[ramo.id];
-          } else {
-            aprobados[ramo.id] = true;
-          }
-          localStorage.setItem(storageKey, JSON.stringify(aprobados));
-          renderMalla();
-        }
-      }
-
-      divSem.appendChild(divRamo);
+        localStorage.setItem(storageKey, JSON.stringify(aprobados));
+        renderMalla();
+      };
+      card.appendChild(btn);
     });
-    container.appendChild(divSem);
+    cont.appendChild(card);
   });
-}
-
-// Buscar nombre de ramo por ID
-function getNombreById(id) {
-  for (const semestreObj of malla) {
-    for (const ramo of semestreObj.ramos) {
-      if (ramo.id === id) return ramo.nombre;
-    }
-  }
-  return id;
 }
 
 window.onload = renderMalla;
