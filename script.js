@@ -1,5 +1,5 @@
-// Malla: cada objeto representa un semestre, cada ramo tiene id, nombre, dependencias
 const malla = [
+  // 1er año
   {
     titulo: "1° Semestre",
     ramos: [
@@ -20,6 +20,8 @@ const malla = [
       { id: 'ingles_basico', nombre: "Inglés básico", abre: ['ingles_tecnico'] }
     ]
   },
+
+  // 2do año
   {
     titulo: "3° Semestre",
     ramos: [
@@ -41,50 +43,37 @@ const malla = [
       { id: 'mod_integrador', nombre: "Módulo integrador inicial: elaboración de proyectos", requiere: ['tecnicas_recoleccion'] }
     ]
   },
-  // ... sigue igual con los siguientes semestres ...
-  // Agrega el resto siguiendo el patrón, o dime si quieres que te lo complete hasta 10 semestres
-];
 
-// Estado de ramos aprobados (localStorage)
-const storageKey = 'malla_psico_aprobada';
-let aprobados = JSON.parse(localStorage.getItem(storageKey) || '{}');
+  // 3er año
+  {
+    titulo: "5° Semestre",
+    ramos: [
+      { id: 'ciclo_familiar', nombre: "Ciclo vital familiar", abre: ['psicogeronto'] },
+      { id: 'psico_educacional', nombre: "Psicología educacional", requiere: ['proc_aprendizaje'], abre: ['eval_psicoeducativa'] },
+      { id: 'psico_juridica', nombre: "Psicología jurídica", requiere: ['psico_comunitaria'], abre: ['diseno_gestion'] },
+      { id: 'psico_trabajo', nombre: "Psicología del trabajo y las organizaciones", abre: ['reclutamiento'] },
+      { id: 'clinica_infanto', nombre: "Introducción a la clínica infanto juvenil", abre: ['psicodiag_infanto'] },
+      { id: 'enfoques_terapia1', nombre: "Enfoques en terapias psicológica I", requiere: ['estructuras_clinicas'], abre: ['enfoques_terapia2'] },
+      { id: 'desarrollo_sost', nombre: "Desarrollo sostenible" }
+    ]
+  },
+  {
+    titulo: "6° Semestre",
+    ramos: [
+      { id: 'psicogeronto', nombre: "Psicogerontología", requiere: ['ciclo_familiar'] },
+      { id: 'eval_psicoeducativa', nombre: "Evaluación psicoeducativa", requiere: ['psico_educacional'], abre: ['intervencion_psicoeducativa'] },
+      { id: 'diseno_gestion', nombre: "Diseño y gestión de proyectos psicosociales", requiere: ['psico_juridica'] },
+      { id: 'reclutamiento', nombre: "Atracción, reclutamiento y selección de personas", requiere: ['psico_trabajo'], abre: ['desarrollo_cambio_org'] },
+      { id: 'clinica_adultos', nombre: "Introducción a la clínica adultos", requiere: ['ciclo_adulto','semiologia'], abre: ['psicodiag_adulto'] },
+      { id: 'enfoques_terapia2', nombre: "Enfoques de terapia psicológica II", requiere: ['enfoques_terapia1'] },
+      { id: 'ingles_tecnico', nombre: "Inglés técnico", requiere: ['ingles_basico'] }
+    ]
+  },
 
-function isDesbloqueado(ramo) {
-  if (!ramo.requiere) return true;
-  return ramo.requiere.every(id => aprobados[id]);
-}
-
-// Render
-function renderMalla() {
-  const cont = document.getElementById('contenedor-malla');
-  cont.innerHTML = '';
-  malla.forEach((semestre, semIdx) => {
-    const card = document.createElement('div');
-    card.className = 'semestre-card';
-    card.innerHTML = `<div class="semestre-titulo">${semestre.titulo}</div>`;
-    semestre.ramos.forEach(ramo => {
-      const desbloqueado = isDesbloqueado(ramo);
-      const estaAprobado = !!aprobados[ramo.id];
-      const btn = document.createElement('button');
-      btn.className = 'ramo-btn' + (estaAprobado ? ' aprobado' : '') + (desbloqueado ? '' : ' bloqueado');
-      btn.innerHTML = `
-        ${ramo.nombre}
-        <span class="check">${estaAprobado ? '✔️' : ''}</span>
-      `;
-      btn.onclick = () => {
-        if (!desbloqueado) return;
-        if (estaAprobado) {
-          delete aprobados[ramo.id];
-        } else {
-          aprobados[ramo.id] = true;
-        }
-        localStorage.setItem(storageKey, JSON.stringify(aprobados));
-        renderMalla();
-      };
-      card.appendChild(btn);
-    });
-    cont.appendChild(card);
-  });
-}
-
-window.onload = renderMalla;
+  // 4to año
+  {
+    titulo: "7° Semestre",
+    ramos: [
+      { id: 'intervencion_psicoeducativa', nombre: "Intervención psicoeducativa", requiere: ['eval_psicoeducativa'] },
+      { id: 'desarrollo_cambio_org', nombre: "Desarrollo y cambio organizacional", requiere: ['reclutamiento'], abre: ['gestion_estrategica'] },
+      { id: 'psicodiag_adulto', nombre: "Psicodi_
