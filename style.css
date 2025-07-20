@@ -4,7 +4,6 @@ body {
   margin: 0;
   min-height: 100vh;
 }
-
 .titulo {
   font-family: 'Dancing Script', cursive;
   font-size: 3rem;
@@ -13,7 +12,6 @@ body {
   margin: 40px 0 30px 0;
   letter-spacing: 1px;
 }
-
 .contenedor-malla {
   display: flex;
   flex-wrap: wrap;
@@ -21,7 +19,6 @@ body {
   gap: 28px;
   padding-bottom: 50px;
 }
-
 .semestre-card {
   background: #ffe3ec;
   border-radius: 22px;
@@ -34,12 +31,10 @@ body {
   flex-direction: column;
   align-items: center;
 }
-
 .semestre-card:nth-child(2n) { background: #e1d7fc; }
 .semestre-card:nth-child(3n) { background: #fce8c3; }
 .semestre-card:nth-child(4n) { background: #e2f2e8; }
 .semestre-card:nth-child(5n) { background: #fde7ec; }
-
 .semestre-titulo {
   color: #cc4588;
   font-size: 1.19rem;
@@ -48,7 +43,6 @@ body {
   margin-bottom: 17px;
   letter-spacing: 0.3px;
 }
-
 .ramo-btn {
   background: #c2b9f5;
   border: none;
@@ -66,12 +60,10 @@ body {
   position: relative;
   text-align: left;
 }
-
 .semestre-card:nth-child(2n) .ramo-btn { background: #fad7e8; color: #88275e; }
 .semestre-card:nth-child(3n) .ramo-btn { background: #f8eab0; color: #7c5a17; }
 .semestre-card:nth-child(4n) .ramo-btn { background: #bff2d8; color: #28584d; }
 .semestre-card:nth-child(5n) .ramo-btn { background: #fdd8d2; color: #97424c; }
-
 .ramo-btn.aprobado {
   background: #b6e8c8 !important;
   color: #20865e !important;
@@ -100,7 +92,6 @@ body {
   display: none;
 }
 .ramo-btn.aprobado .check { display: flex; }
-
 @media (max-width: 1100px) {
   .contenedor-malla { flex-wrap: wrap; }
 }
