@@ -1,5 +1,6 @@
 body {
-  background: #f7f6fa;
+  background: #f7f6fa url('image0.jpeg') repeat;
+  background-size: 370px;
   font-family: 'Montserrat', Arial, sans-serif;
   margin: 0;
   min-height: 100vh;
@@ -11,6 +12,11 @@ body {
   color: #D86B98;
   margin: 40px 0 30px 0;
   letter-spacing: 1px;
+  text-shadow: 0 2px 18px #fff7fa, 0 0px 1px #bdb1b1;
+  background: rgba(255,255,255,0.76);
+  border-radius: 18px;
+  display: inline-block;
+  padding: 0 18px;
 }
 .contenedor-malla {
   display: flex;
@@ -20,7 +26,7 @@ body {
   padding-bottom: 50px;
 }
 .semestre-card {
-  background: #ffe3ec;
+  background: #ffe3ecf5;
   border-radius: 22px;
   box-shadow: 0 4px 24px #c2b5c31a, 0 1.5px 4px #d2c2d430;
   min-width: 240px;
@@ -30,11 +36,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  backdrop-filter: blur(2px);
 }
-.semestre-card:nth-child(2n) { background: #e1d7fc; }
-.semestre-card:nth-child(3n) { background: #fce8c3; }
-.semestre-card:nth-child(4n) { background: #e2f2e8; }
-.semestre-card:nth-child(5n) { background: #fde7ec; }
+.semestre-card:nth-child(2n) { background: #e1d7fcdf; }
+.semestre-card:nth-child(3n) { background: #fce8c3e3; }
+.semestre-card:nth-child(4n) { background: #e2f2e8e9; }
+.semestre-card:nth-child(5n) { background: #fde7ecf1; }
 .semestre-titulo {
   color: #cc4588;
   font-size: 1.19rem;
@@ -59,6 +66,7 @@ body {
   transition: all 0.15s;
   position: relative;
   text-align: left;
+  background-clip: padding-box;
 }
 .semestre-card:nth-child(2n) .ramo-btn { background: #fad7e8; color: #88275e; }
 .semestre-card:nth-child(3n) .ramo-btn { background: #f8eab0; color: #7c5a17; }
@@ -68,12 +76,12 @@ body {
   background: #b6e8c8 !important;
   color: #20865e !important;
   text-decoration: line-through;
-  opacity: 0.75;
+  opacity: 0.7;
 }
 .ramo-btn.bloqueado {
   background: #e4e6ec !important;
   color: #aaa !important;
-  opacity: 0.5;
+  opacity: 0.48;
   cursor: not-allowed;
   text-decoration: none;
 }
