@@ -17,7 +17,7 @@ const malla = [
       { id: 'bases_personalidad', nombre: "Bases de la personalidad", abre: ['procesos_afectivos', 'simiopatologia'] },
       { id: 'neuro_cog', nombre: "Neurociencia cognitiva", abre: ['procesos_cognitivos'] },
       { id: 'fund_epistemologia', nombre: "Fundamentos epistemológicos del comportamiento humano", abre: ['psico_social'] },
-      { id: 'metodo2', nombre: "Metodología de la investigación II", abre: ['tecnicas_recoleccion'] }, // ACTUALIZADO
+      { id: 'metodo2', nombre: "Metodología de la investigación II", abre: ['tecnicas_recoleccion'] }, // NOMBRE ACTUALIZADO
       { id: 'ingles_basico', nombre: "Inglés básico", abre: ['ingles_tecnico'] }
     ]
   },
@@ -175,4 +175,17 @@ function actualizarEstado() {
   }
 
   Object.entries(idToBtn).forEach(([id, btn]) => {
-    if (
+    if (aprobados[id]) {
+      btn.classList.add('aprobado');
+      btn.classList.remove('bloqueado');
+    } else if (!desbloqueados.has(id)) {
+      btn.classList.add('bloqueado');
+      btn.disabled = true;
+    } else {
+      btn.classList.remove('aprobado', 'bloqueado');
+      btn.disabled = false;
+    }
+  });
+}
+
+renderMalla();
