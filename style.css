@@ -1,7 +1,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: #fff url('image0.jpeg') repeat;
+  background: #fff url('IMG_0269.JPG') repeat;
   background-size: 420px;
   color: #111;
   font-family: 'Montserrat', Arial, sans-serif;
@@ -33,7 +33,7 @@ body {
   margin: 38px 0 35px 0;
   letter-spacing: 1.7px;
   font-weight: 900;
-  background: rgba(255,255,255,0.38); /* Más transparente */
+  background: rgba(255,255,255,0.38);
   border-radius: 18px;
   display: inline-block;
   width: 100%;
@@ -45,14 +45,14 @@ body {
 .contenedor-malla {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;        /* PERMITE QUE BAJE ABAJO */
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   gap: 28px;
   padding: 40px 18px 50px 18px;
   width: 100%;
   margin-bottom: 30px;
-  background: rgba(255,255,255,0.72);  /* Más transparente para ver imagen fondo */
+  background: rgba(255,255,255,0.72);
   border-radius: 20px;
   box-shadow: 0 0 80px 0px rgba(180,176,194,0.09);
   z-index: 2;
@@ -127,7 +127,7 @@ body {
 .semestre-card:nth-child(10) .ramo-btn { background: #FFF4F7; color: #111; }
 
 .ramo-btn.aprobado {
-  background: #F3D8DF !important; /* rosado pastel */
+  background: #F3D8DF !important;
   color: #111 !important;
   text-decoration: line-through;
   opacity: 0.7;
