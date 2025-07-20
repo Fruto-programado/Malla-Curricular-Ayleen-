@@ -1,9 +1,9 @@
 const malla = [
-  // 1er año
+  // Primer año
   {
     titulo: "1° Semestre",
     ramos: [
-      { id: 'intro_psico', nombre: "Introducción a la psicología", abre: ['bases_personalidad','fund_epistemologia'] },
+      { id: 'intro_psico', nombre: "Introducción a la psicología", abre: ['bases_personalidad', 'fund_epistemologia'] },
       { id: 'neurofisio', nombre: "Neurofisiología", abre: ['neuro_cog'] },
       { id: 'etica', nombre: "Ética y deontología en la psicología" },
       { id: 'metodo1', nombre: "Metodología de la investigación I", abre: ['metodo2'] }
@@ -13,24 +13,23 @@ const malla = [
     titulo: "2° Semestre",
     ramos: [
       { id: 'ciclo_infanto', nombre: "Ciclo evolutivo infanto juvenil", abre: ['ciclo_adulto'] },
-      { id: 'bases_personalidad', nombre: "Bases de la personalidad", requiere: ['intro_psico'], abre: ['proc_afectivos','semiologia'] },
+      { id: 'bases_personalidad', nombre: "Bases de la personalidad", requiere: ['intro_psico'], abre: ['proc_afectivos', 'semiologia'] },
       { id: 'neuro_cog', nombre: "Neurociencia cognitiva", requiere: ['neurofisio'], abre: ['proc_cognitivos'] },
       { id: 'fund_epistemologia', nombre: "Fundamentos epistemológicos del comportamiento humano", requiere: ['intro_psico'], abre: ['psico_social'] },
       { id: 'metodo2', nombre: "Metodología de la investigación II", requiere: ['metodo1'], abre: ['tecnicas_recoleccion'] },
       { id: 'ingles_basico', nombre: "Inglés básico", abre: ['ingles_tecnico'] }
     ]
   },
-
-  // 2do año
+  // Segundo año
   {
     titulo: "3° Semestre",
     ramos: [
       { id: 'ciclo_adulto', nombre: "Ciclo evolutivo adulto", requiere: ['ciclo_infanto'], abre: ['clinica_adultos'] },
       { id: 'proc_afectivos', nombre: "Procesos afectivos y motivacionales", requiere: ['bases_personalidad'], abre: ['genero'] },
       { id: 'proc_cognitivos', nombre: "Procesos cognitivos", requiere: ['neuro_cog'], abre: ['proc_aprendizaje'] },
-      { id: 'semiologia', nombre: "Semiología de la patología mental", requiere: ['bases_personalidad'], abre: ['estructuras_clinicas','clinica_adultos'] },
+      { id: 'semiologia', nombre: "Semiologia de la patología mental", requiere: ['bases_personalidad'], abre: ['estructuras_clinicas', 'clinica_adultos'] },
       { id: 'psico_social', nombre: "Psicología social", requiere: ['fund_epistemologia'], abre: ['psico_comunitaria'] },
-      { id: 'tecnicas_recoleccion', nombre: "Técnicas de recolección de datos", requiere: ['metodo2'], abre: ['mod_integrador','tesis1'] }
+      { id: 'tecnicas_recoleccion', nombre: "Técnicas de recolección de datos", requiere: ['metodo2'], abre: ['mod_integrador', 'tesis1'] }
     ]
   },
   {
@@ -43,8 +42,7 @@ const malla = [
       { id: 'mod_integrador', nombre: "Módulo integrador inicial: elaboración de proyectos", requiere: ['tecnicas_recoleccion'] }
     ]
   },
-
-  // 3er año
+  // Tercer año
   {
     titulo: "5° Semestre",
     ramos: [
@@ -69,11 +67,82 @@ const malla = [
       { id: 'ingles_tecnico', nombre: "Inglés técnico", requiere: ['ingles_basico'] }
     ]
   },
-
-  // 4to año
+  // Cuarto año
   {
     titulo: "7° Semestre",
     ramos: [
       { id: 'intervencion_psicoeducativa', nombre: "Intervención psicoeducativa", requiere: ['eval_psicoeducativa'] },
       { id: 'desarrollo_cambio_org', nombre: "Desarrollo y cambio organizacional", requiere: ['reclutamiento'], abre: ['gestion_estrategica'] },
-      { id: 'psicodiag_adulto', nombre: "Psicodi_
+      { id: 'psicodiag_adulto', nombre: "Psicodiagnóstico en psicología adulto", requiere: ['clinica_adultos'], abre: ['intervencion_adulto'] },
+      { id: 'psicodiag_infanto', nombre: "Psicodiagnóstico en psicología infanti juvenil", requiere: ['clinica_infanto'], abre: ['intervencion_infanto'] },
+      { id: 'tesis1', nombre: "Tesis de licenciatura en psicología I", requiere: ['tecnicas_recoleccion'], abre: ['integrador_intermedio'] },
+      { id: 'responsabilidad_social', nombre: "Responsabilidad social y emprendimiento" }
+    ]
+  },
+  {
+    titulo: "8° Semestre",
+    ramos: [
+      { id: 'gestion_estrategica', nombre: "Gestión estratégica de personas", requiere: ['desarrollo_cambio_org'], abre: ['electivo1'] },
+      { id: 'intervencion_adulto', nombre: "Intervención en psicología adulto", requiere: ['psicodiag_adulto'], abre: ['electivo1'] },
+      { id: 'intervencion_infanto', nombre: "Intervención en psicología infanto juvenil", requiere: ['psicodiag_infanto'], abre: ['electivo1'] },
+      { id: 'integrador_intermedio', nombre: "Integrador intermedio: tesis de licenciatura en psicología II", requiere: ['tesis1'], abre: ['practica1'] },
+      { id: 'prep_vida_laboral', nombre: "Preparación para la vida laboral", abre: ['electivo1'] }
+    ]
+  },
+  // Quinto año
+  {
+    titulo: "9° Semestre",
+    ramos: [
+      { id: 'practica1', nombre: "Práctica profesional I", requiere: ['integrador_intermedio'], abre: ['mod_integrador_final'] },
+      { id: 'electivo1', nombre: "Electivo de especialización profesional I", requiere: ['gestion_estrategica','intervencion_adulto','intervencion_infanto','prep_vida_laboral'], abre: ['electivo2'] }
+    ]
+  },
+  {
+    titulo: "10° Semestre",
+    ramos: [
+      { id: 'mod_integrador_final', nombre: "Módulo integrador final práctica profesional II", requiere: ['practica1'] },
+      { id: 'electivo2', nombre: "Electivo de especialización profesional II", requiere: ['electivo1'] }
+    ]
+  }
+];
+
+const storageKey = 'malla_psico_aprobada';
+let aprobados = JSON.parse(localStorage.getItem(storageKey) || '{}');
+
+function isDesbloqueado(ramo) {
+  if (!ramo.requiere) return true;
+  return ramo.requiere.every(id => aprobados[id]);
+}
+
+function renderMalla() {
+  const cont = document.getElementById('contenedor-malla');
+  cont.innerHTML = '';
+  malla.forEach((semestre, semIdx) => {
+    const card = document.createElement('div');
+    card.className = 'semestre-card';
+    card.innerHTML = `<div class="semestre-titulo">${semestre.titulo}</div>`;
+    semestre.ramos.forEach(ramo => {
+      const desbloqueado = isDesbloqueado(ramo);
+      const estaAprobado = !!aprobados[ramo.id];
+      const btn = document.createElement('button');
+      btn.className = 'ramo-btn' + (estaAprobado ? ' aprobado' : '') + (desbloqueado ? '' : ' bloqueado');
+      btn.innerHTML = `
+        ${ramo.nombre}
+        <span class="check">${estaAprobado ? '✔️' : ''}</span>
+      `;
+      btn.onclick = () => {
+        if (!desbloqueado) return;
+        if (estaAprobado) {
+          delete aprobados[ramo.id];
+        } else {
+          aprobados[ramo.id] = true;
+        }
+        localStorage.setItem(storageKey, JSON.stringify(aprobados));
+        renderMalla();
+      };
+      card.appendChild(btn);
+    });
+    cont.appendChild(card);
+  });
+}
+window.onload = renderMalla;
