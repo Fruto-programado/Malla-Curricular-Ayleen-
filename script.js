@@ -148,11 +148,19 @@ function actualizarEstado() {
     btn.disabled = false;
   });
 
-  // SEMESTRES SIEMPRE DESBLOQUEADOS: PRIMER Y SEGUNDO
-  const desbloqueados = new Set([
-    ...malla[0].ramos.map(r => r.id), // 1er semestre
-    ...malla[1].ramos.map(r => r.id)  // 2do semestre
-  ]);
+  // Solo los ramos sin prerrequisito (no son abiertos por nadie) están desbloqueados al inicio
+  const desbloqueados = new Set();
+  malla.forEach(sem =>
+    sem.ramos.forEach(ramo => {
+      let esRequisito = false;
+      malla.forEach(s2 =>
+        s2.ramos.forEach(r2 => {
+          if (r2.abre && r2.abre.includes(ramo.id)) esRequisito = true;
+        })
+      );
+      if (!esRequisito) desbloqueados.add(ramo.id);
+    })
+  );
 
   let cambios = true;
   while (cambios) {
