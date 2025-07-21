@@ -1,5 +1,5 @@
 const malla = [
-  // Primer año
+  // PRIMER AÑO
   {
     titulo: "1° Semestre",
     ramos: [
@@ -7,7 +7,6 @@ const malla = [
       { id: 'neurofisio', nombre: "Neurofisiología", abre: ['neuro_cog'] },
       { id: 'etica', nombre: "Ética y deontología en la psicología" },
       { id: 'metodo1', nombre: "Metodología de la investigación I", abre: ['metodo2'] },
-      { id: 'tecnologia', nombre: "Tecnología e innovación" }
     ]
   },
   {
@@ -21,7 +20,7 @@ const malla = [
       { id: 'ingles_basico', nombre: "Inglés básico", abre: ['ingles_tecnico'] }
     ]
   },
-  // Segundo año
+  // SEGUNDO AÑO
   {
     titulo: "3° Semestre",
     ramos: [
@@ -43,7 +42,7 @@ const malla = [
       { id: 'modulo_inicial', nombre: "Módulo integrador inicial: elaboración de proyectos" }
     ]
   },
-  // Tercer año
+  // TERCER AÑO
   {
     titulo: "5° Semestre",
     ramos: [
@@ -68,7 +67,7 @@ const malla = [
       { id: 'ingles_tecnico', nombre: "Inglés técnico" }
     ]
   },
-  // Cuarto año
+  // CUARTO AÑO
   {
     titulo: "7° Semestre",
     ramos: [
@@ -90,7 +89,7 @@ const malla = [
       { id: 'vida_laboral', nombre: "Preparación para la vida laboral", abre: ['electivo1'] }
     ]
   },
-  // Quinto año
+  // QUINTO AÑO
   {
     titulo: "9° Semestre",
     ramos: [
@@ -148,20 +147,27 @@ function actualizarEstado() {
     btn.disabled = false;
   });
 
-  // Solo los ramos sin prerrequisito (no son abiertos por nadie) están desbloqueados al inicio
-  const desbloqueados = new Set();
+  // Detecta TODOS los ramos de la malla
+  const todosRamos = [];
+  malla.forEach(sem => sem.ramos.forEach(ramo => todosRamos.push(ramo.id)));
+
+  // Detecta los que tienen al menos un "abridor"
+  const ramosConRequisito = new Set();
   malla.forEach(sem =>
     sem.ramos.forEach(ramo => {
-      let esRequisito = false;
-      malla.forEach(s2 =>
-        s2.ramos.forEach(r2 => {
-          if (r2.abre && r2.abre.includes(ramo.id)) esRequisito = true;
-        })
-      );
-      if (!esRequisito) desbloqueados.add(ramo.id);
+      if (ramo.abre) {
+        ramo.abre.forEach(target => ramosConRequisito.add(target));
+      }
     })
   );
 
+  // Los que NO están en ramosConRequisito se desbloquean al inicio
+  const desbloqueados = new Set();
+  todosRamos.forEach(id => {
+    if (!ramosConRequisito.has(id)) desbloqueados.add(id);
+  });
+
+  // Expande desbloqueados normalmente
   let cambios = true;
   while (cambios) {
     cambios = false;
@@ -183,6 +189,7 @@ function actualizarEstado() {
     );
   }
 
+  // Actualiza estado de botones
   Object.keys(idToBtn).forEach(id => {
     if (aprobados[id]) {
       idToBtn[id].classList.add('aprobado');
