@@ -148,12 +148,12 @@ function actualizarEstado() {
     btn.disabled = false;
   });
 
-  // Primer semestre siempre desbloqueado
-  malla[0].ramos.forEach(ramo => {
-    if (!aprobados[ramo.id]) idToBtn[ramo.id].classList.remove('aprobado', 'bloqueado');
-  });
+  // SEMESTRES SIEMPRE DESBLOQUEADOS: PRIMER Y SEGUNDO
+  const desbloqueados = new Set([
+    ...malla[0].ramos.map(r => r.id), // 1er semestre
+    ...malla[1].ramos.map(r => r.id)  // 2do semestre
+  ]);
 
-  const desbloqueados = new Set(malla[0].ramos.map(r => r.id));
   let cambios = true;
   while (cambios) {
     cambios = false;
@@ -175,7 +175,6 @@ function actualizarEstado() {
     );
   }
 
-  // Aplica clases
   Object.keys(idToBtn).forEach(id => {
     if (aprobados[id]) {
       idToBtn[id].classList.add('aprobado');
