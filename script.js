@@ -107,7 +107,7 @@ const malla = [
   }
 ];
 
-// --- Render de la malla y lógica de desbloqueo ---
+// --- Render y lógica de desbloqueo ---
 
 const idToBtn = {};
 const aprobados = {};
@@ -148,6 +148,7 @@ function actualizarEstado() {
     btn.disabled = false;
   });
 
+  // Primer semestre siempre desbloqueado
   malla[0].ramos.forEach(ramo => {
     if (!aprobados[ramo.id]) idToBtn[ramo.id].classList.remove('aprobado', 'bloqueado');
   });
@@ -163,4 +164,28 @@ function actualizarEstado() {
         let requisitos = [];
         malla.forEach(s =>
           s.ramos.forEach(r => {
-            if (r.abre && r.abre.includes
+            if (r.abre && r.abre.includes(ramo.id)) requisitos.push(r.id);
+          })
+        );
+        if (requisitos.length > 0 && requisitos.every(id => aprobados[id])) {
+          desbloqueados.add(ramo.id);
+          cambios = true;
+        }
+      })
+    );
+  }
+
+  // Aplica clases
+  Object.keys(idToBtn).forEach(id => {
+    if (aprobados[id]) {
+      idToBtn[id].classList.add('aprobado');
+      idToBtn[id].classList.remove('bloqueado');
+    } else if (!desbloqueados.has(id)) {
+      idToBtn[id].classList.add('bloqueado');
+      idToBtn[id].classList.remove('aprobado');
+    }
+  });
+}
+
+// Ejecutar render
+renderMalla();
