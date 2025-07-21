@@ -17,7 +17,7 @@ const malla = [
       { id: 'bases_personalidad', nombre: "Bases de la personalidad", abre: ['procesos_afectivos', 'simiopatologia'] },
       { id: 'neuro_cog', nombre: "Neurociencia cognitiva", abre: ['procesos_cognitivos'] },
       { id: 'fund_epistemologia', nombre: "Fundamentos epistemológicos del comportamiento humano", abre: ['psico_social'] },
-      { id: 'metodo2', nombre: "Metodología de la investigación II", abre: ['tecnicas_recoleccion'] }, // NOMBRE ACTUALIZADO
+      { id: 'metodo2', nombre: "Metodología de la investigación II", abre: ['tecnicas_recoleccion'] },
       { id: 'ingles_basico', nombre: "Inglés básico", abre: ['ingles_tecnico'] }
     ]
   },
@@ -163,29 +163,4 @@ function actualizarEstado() {
         let requisitos = [];
         malla.forEach(s =>
           s.ramos.forEach(r => {
-            if (r.abre && r.abre.includes(ramo.id)) requisitos.push(r.id);
-          })
-        );
-        if (requisitos.every(rid => aprobados[rid])) {
-          desbloqueados.add(ramo.id);
-          cambios = true;
-        }
-      })
-    );
-  }
-
-  Object.entries(idToBtn).forEach(([id, btn]) => {
-    if (aprobados[id]) {
-      btn.classList.add('aprobado');
-      btn.classList.remove('bloqueado');
-    } else if (!desbloqueados.has(id)) {
-      btn.classList.add('bloqueado');
-      btn.disabled = true;
-    } else {
-      btn.classList.remove('aprobado', 'bloqueado');
-      btn.disabled = false;
-    }
-  });
-}
-
-renderMalla();
+            if (r.abre && r.abre.includes
